@@ -18,22 +18,22 @@ class WorldRenderer {
     private CinosGame cinosgame;
     private SpriteBatch batch;
     private World world;
-    
-//    public static final int BLOCK_SIZE = 40;
-    
-    
+    private Sonic sonic;
+    public static final int BLOCK_SIZE = 40;
+
     public WorldRenderer(CinosGame cinosgame, World world) {
         this.cinosgame = cinosgame;
         batch = cinosgame.batch;
         this.world = world;
         SonicImg = new Texture("Sonic.jpg");
+        sonic = world.getSonic();
     }
     
     public void render(float delta){
         batch = cinosgame.batch;
         batch.begin();
-//        Vector2 pos = pacman.getPosition();
-        batch.draw(SonicImg, 20,400);
+        Vector2 pos = sonic.getPosition();
+        batch.draw(SonicImg, pos.x, CinosGame.HEIGHT - pos.y);
         batch.end();
     }
 }
