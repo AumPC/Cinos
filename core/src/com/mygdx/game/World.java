@@ -15,7 +15,7 @@ class World {
     
     World(CinosGame cinosgame) {
         this.cinosgame = cinosgame;
-        sonic = new Sonic(60,60);
+        sonic = new Sonic(60,500);
     }
 
     public void update(float delta) {

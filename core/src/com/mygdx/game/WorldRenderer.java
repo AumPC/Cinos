@@ -25,7 +25,7 @@ class WorldRenderer {
         this.cinosgame = cinosgame;
         batch = cinosgame.batch;
         this.world = world;
-        SonicImg = new Texture("Sonic.jpg");
+        SonicImg = new Texture("Sonic.png");
         sonic = world.getSonic();
     }
     
