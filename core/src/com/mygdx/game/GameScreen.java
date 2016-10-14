@@ -6,6 +6,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 
@@ -17,11 +18,16 @@ public class GameScreen extends ScreenAdapter {
     private CinosGame cinosgame;
     private World world;
     private WorldRenderer worldRenderer;
+    private Sonic sonic;
+            
+//    
+//    private timeutils x;            
             
     public GameScreen(CinosGame cinosgame) {
         this.cinosgame = cinosgame;
         world = new World(cinosgame);
         worldRenderer = new WorldRenderer(cinosgame,world);
+        sonic = world.getSonic();
     }
     
     @Override
@@ -34,5 +40,20 @@ public class GameScreen extends ScreenAdapter {
     
     public void update(float delta) {
         world.update(delta);
+        updateSonicDirection();
+        sonic.update();
+    }
+    
+    private void updateSonicDirection() {
+        if(Gdx.input.isKeyPressed(Input.Keys.UP) && sonic.position.y>=400) {
+            sonic.nextdirection(Sonic.UP);
+        }else
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            sonic.nextdirection(Sonic.LEFT);
+        }else
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            sonic.nextdirection(Sonic.RIGHT);
+        }else
+            sonic.nextdirection(Sonic.STILL);
     }
 }

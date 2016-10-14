@@ -12,22 +12,32 @@ import com.badlogic.gdx.math.Vector2;
  * @author APC
  */
 public class Sonic {
-    public static final int UP = 1;
-    public static final int RIGHT = 2;
-    public static final int LEFT = 3;
+    public static final int UP = 3;
+    public static final int RIGHT = 1;
+    public static final int LEFT = 2;
     public static final int STILL = 0;
-    private static final int [][] DIRECT = new int [][] {
-        {0,0},
-        {0,1},
-        {1,0},
-        {-1,0}};
-    private Vector2 position;
+    public Vector2 position;
     private int speed = 5;
- 
+    private int nextdir;
+    private int changex[] = {0,1,-1};
+    
     public Sonic(int x, int y) {
         position = new Vector2(x,y);
     }    
     public Vector2 getPosition() {
-        return position;    
+        return position;
+    }
+    public void nextdirection(int dir){
+        nextdir = dir;
+    }
+    
+    public void update() {
+        if(nextdir!=3) {
+            position.x += speed * changex[nextdir];
+            if(position.y<=500)
+                position.y += 2;
+        } else {
+            position.y -= 40;
+        }
     }
 }
