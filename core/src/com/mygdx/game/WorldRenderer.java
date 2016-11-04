@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 class WorldRenderer {
     private Texture SonicImg;
+    private Texture BG;
     private CinosGame cinosgame;
     private SpriteBatch batch;
     private World world;
@@ -27,13 +28,16 @@ class WorldRenderer {
         this.world = world;
         SonicImg = new Texture("Sonic.png");
         sonic = world.getSonic();
+        BG = new Texture("Windy_Hill_Background.png");
     }
     
     public void render(float delta){
         batch = cinosgame.batch;
         batch.begin();
         Vector2 pos = sonic.getPosition();
+        batch.draw(BG, 0, 0);
         batch.draw(SonicImg, pos.x, CinosGame.HEIGHT - pos.y);
+        
         batch.end();
     }
 }

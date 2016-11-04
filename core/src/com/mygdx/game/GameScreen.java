@@ -9,6 +9,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  *
@@ -19,7 +23,10 @@ public class GameScreen extends ScreenAdapter {
     private World world;
     private WorldRenderer worldRenderer;
     private Sonic sonic;
-            
+    
+    
+    private OrthographicCamera gamecam; 
+    private FitViewport gameport;
 //    
 //    private timeutils x;            
             
@@ -28,6 +35,9 @@ public class GameScreen extends ScreenAdapter {
         world = new World(cinosgame);
         worldRenderer = new WorldRenderer(cinosgame,world);
         sonic = world.getSonic();
+        
+        gamecam = new OrthographicCamera();
+        gameport = new FitViewport(cinosgame.WIDTH,cinosgame.HEIGHT,gamecam);
     }
     
     @Override
@@ -42,6 +52,7 @@ public class GameScreen extends ScreenAdapter {
         world.update(delta);
         updateSonicDirection();
         sonic.update();
+        updateCam();
     }
     
     private void updateSonicDirection() {
@@ -55,5 +66,13 @@ public class GameScreen extends ScreenAdapter {
             sonic.nextdirection(Sonic.RIGHT);
         }else
             sonic.nextdirection(Sonic.STILL);
+    }
+    private void updateCam() {
+        if((sonic.position.x == cinosgame.WIDTH/2) && (Gdx.input.isKeyPressed(Input.Keys.LEFT))) {
+            gamecam.position.x -= 60;
+        }
+        if((sonic.position.x == cinosgame.WIDTH/2) && (Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
+            gamecam.position.x += 60;
+        }
     }
 }
