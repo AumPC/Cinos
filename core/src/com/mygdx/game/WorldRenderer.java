@@ -7,37 +7,39 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 /**
  *
  * @author APC
  */
 class WorldRenderer {
-    private Texture SonicImg;
+    
     private Texture BG;
+    private Texture Map;
     private CinosGame cinosgame;
     private SpriteBatch batch;
     private World world;
     private Sonic sonic;
+    private GameScreen gameScreen;
     public static final int BLOCK_SIZE = 40;
 
-    public WorldRenderer(CinosGame cinosgame, World world) {
+    public WorldRenderer(CinosGame cinosgame, World world, GameScreen gameScreen) {
         this.cinosgame = cinosgame;
-        batch = cinosgame.batch;
         this.world = world;
-        SonicImg = new Texture("Sonic.png");
+        this.gameScreen = gameScreen;
+        
+        batch = cinosgame.batch;
         sonic = world.getSonic();
         BG = new Texture("Windy_Hill_Background.png");
-    }
+        Map = new Texture("ghz-22.png");
+}
     
     public void render(float delta){
         batch = cinosgame.batch;
         batch.begin();
-        Vector2 pos = sonic.getPosition();
-        batch.draw(BG, 0, 0);
-        batch.draw(SonicImg, pos.x, CinosGame.HEIGHT - pos.y);
-        
+        batch.draw(BG, gameScreen.gamePositionX(), gameScreen.gamePositionY());
+        batch.draw(Map, 0,0);
+        sonic.playerSprite.draw(batch);
         batch.end();
     }
 }

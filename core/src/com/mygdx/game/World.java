@@ -11,21 +11,23 @@ package com.mygdx.game;
  */
 class World {
     private CinosGame cinosgame;
-    private Sonic sonic;
+    private GameScreen gameScreen;
+    public Sonic sonic;
     
-    World(CinosGame cinosgame) {
+    public float MAP_X = 4000;
+    public float MAP_Y = 600;
+    
+    World(CinosGame cinosgame,GameScreen gameScreen) {
         this.cinosgame = cinosgame;
-        sonic = new Sonic(60,500);
+        this.gameScreen = gameScreen;
+        sonic = new Sonic(gameScreen);
     }
 
     public void update(float delta) {
-//        pacman.update();
+        sonic.update();
     }
     
     Sonic getSonic() {
         return sonic;
     }
-//    Maze getMaze() {
-//        return maze;
-//    }
 }
