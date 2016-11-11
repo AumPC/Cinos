@@ -5,6 +5,10 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,26 +26,28 @@ public class Sonic {
     private int frameRows = 1;
     private GameScreen gameScreen;
     public Sprite playerSprite;
-    
-    public static final int UP = 3;
-    public static final int RIGHT = 1;
-    public static final int LEFT = 2;
-    public static final int STILL = 0;
+
     private int speed = 5;
-    private int nextdir;
-    private int changex[] = {0,1,-1};
+    private boolean jump1 = false;
+    private boolean jump2 = false;
+    private int countY = 0;
     
     float minX = 0;
     float minY = 0;
     float maxX = 3200;
     float maxY = 800;
     
+    private Pixmap pixMap;
+    Texture mapBlack;
+    
     public Sonic(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
 //        position = new Vector2(x,y);
         setTextureRegion();
         setUpSprite();
-    }    
+        mapBlack = new Texture("Untitled-12.png");
+
+    }
     
     private void setTextureRegion(){
         sonicImgLeft = new Texture("sonic_left.gif");
@@ -66,19 +72,40 @@ public class Sonic {
     public void update(){
         updatePosition();
 //        updateAttack();
+//        checkWalk();
     }
     
-    public void nextdirection(int dir){
-        nextdir = dir;
-    }
+//    public void checkWalk(){
+//        pixMap = mapBlack.getTextureData().consumePixmap();
+//        int f = pixMap.getPixel(200, 100);
+//    pixMap.dispose();
+//        System.out.println("Color" + f);
+//    }
     
     private void updatePosition(){
-        if(nextdir!=3) {
-            playerSprite.setPosition(playerSprite.getX()+ speed * changex[nextdir] , playerSprite.getY()) ;
-            if(playerSprite.getY()<=500)
-                playerSprite.setPosition(playerSprite.getX(), playerSprite.getY()+5) ;
+        System.out.println(countY);
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if(jump1 == false){
+                countY = 10;
+                jump1 = true;
+            } else if(jump2 == false){
+                countY = 10;
+                jump2 = true;
+            }
+        }
+        if(countY > 0){
+            playerSprite.setPosition(playerSprite.getX(), playerSprite.getY()+5);
+            countY--;
         } else {
-            playerSprite.setPosition(playerSprite.getX(), playerSprite.getY()-45);
+            jump1 = false;
+            jump2 = false;
+            playerSprite.setPosition(playerSprite.getX(), playerSprite.getY()-5);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            playerSprite.setPosition(playerSprite.getX()- speed , playerSprite.getY());
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            playerSprite.setPosition(playerSprite.getX()+ speed , playerSprite.getY());
         }
         checkPlayerOutOfBound();
     }

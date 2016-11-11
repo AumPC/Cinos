@@ -31,12 +31,13 @@ class WorldRenderer {
         batch = cinosgame.batch;
         sonic = world.getSonic();
         BG = new Texture("Windy_Hill_Background.png");
-        Map = new Texture("ghz-22.png");
+        Map = new Texture("ghz-222.png");
 }
     
     public void render(float delta){
         batch = cinosgame.batch;
         batch.begin();
+        batch.draw(sonic.mapBlack, 0, 0);
         batch.draw(BG, gameScreen.gamePositionX(), gameScreen.gamePositionY());
         batch.draw(Map, 0,0);
         sonic.playerSprite.draw(batch);

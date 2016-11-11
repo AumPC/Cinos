@@ -41,7 +41,7 @@ public class GameScreen extends ScreenAdapter {
     
     @Override
     public void render(float delta) {
-        update(delta);
+        world.update(delta);
         cameraUpdate();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -49,24 +49,8 @@ public class GameScreen extends ScreenAdapter {
         worldRenderer.render(delta);
         System.out.println(gamePositionX() + " && "+ gamePositionY());
     }
+ 
     
-    public void update(float delta) {
-        world.update(delta);
-        updateSonicDirection();
-    }
-    
-    private void updateSonicDirection() {
-        if(Gdx.input.isKeyPressed(Input.Keys.UP) && world.sonic.playerSprite.getY()>=400) {
-            sonic.nextdirection(Sonic.UP);
-        }else
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            sonic.nextdirection(Sonic.LEFT);
-        }else
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            sonic.nextdirection(Sonic.RIGHT);
-        }else
-            sonic.nextdirection(Sonic.STILL);
-    }
     
     private void cameraUpdate(){
         float x = world.sonic.playerSprite.getX();
