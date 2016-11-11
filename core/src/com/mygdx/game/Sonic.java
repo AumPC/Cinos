@@ -79,8 +79,8 @@ public class Sonic {
             y += 5;
             countY--;
         } else {
-            jump1 = false;
-            jump2 = false;
+            isJump1 = false;
+            isJump2 = false;
             y -= 5;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
