@@ -14,13 +14,13 @@ class World {
     private GameScreen gameScreen;
     public Sonic sonic;
     
-    public float MAP_X = 4000;
+    public float MAP_X = 3600;
     public float MAP_Y = 600;
     
     World(CinosGame cinosgame,GameScreen gameScreen) {
         this.cinosgame = cinosgame;
         this.gameScreen = gameScreen;
-        sonic = new Sonic(gameScreen);
+        sonic = new Sonic(gameScreen,this);
     }
 
     public void update(float delta) {

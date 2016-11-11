@@ -7,8 +7,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,28 +23,19 @@ public class Sonic {
     private int frameCols = 10;	
     private int frameRows = 1;
     private GameScreen gameScreen;
+    private World world;
     public Sprite playerSprite;
 
     private int speed = 5;
-    private boolean jump1 = false;
-    private boolean jump2 = false;
+    private boolean isJump1 = false;
+    private boolean isJump2 = false;
     private int countY = 0;
     
-    float minX = 0;
-    float minY = 0;
-    float maxX = 3200;
-    float maxY = 800;
-    
-    private Pixmap pixMap;
-    Texture mapBlack;
-    
-    public Sonic(GameScreen gameScreen) {
+    public Sonic(GameScreen gameScreen,World world) {
         this.gameScreen = gameScreen;
-//        position = new Vector2(x,y);
+        this.world = world;
         setTextureRegion();
         setUpSprite();
-        mapBlack = new Texture("Untitled-12.png");
-
     }
     
     private void setTextureRegion(){
@@ -71,79 +60,58 @@ public class Sonic {
     
     public void update(){
         updatePosition();
-//        updateAttack();
-//        checkWalk();
     }
-    
-//    public void checkWalk(){
-//        pixMap = mapBlack.getTextureData().consumePixmap();
-//        int f = pixMap.getPixel(200, 100);
-//    pixMap.dispose();
-//        System.out.println("Color" + f);
-//    }
     
     private void updatePosition(){
         System.out.println(countY);
+        float x = playerSprite.getX();
+        float y = playerSprite.getY();
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            if(jump1 == false){
+            if(isJump1 == false){
                 countY = 10;
-                jump1 = true;
-            } else if(jump2 == false){
+                isJump1 = true;
+            } else if(isJump2 == false){
                 countY = 10;
-                jump2 = true;
+                isJump2 = true;
             }
         }
         if(countY > 0){
-            playerSprite.setPosition(playerSprite.getX(), playerSprite.getY()+5);
+            y += 5;
             countY--;
         } else {
             jump1 = false;
             jump2 = false;
-            playerSprite.setPosition(playerSprite.getX(), playerSprite.getY()-5);
+            y -= 5;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            playerSprite.setPosition(playerSprite.getX()- speed , playerSprite.getY());
+            x -= speed;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            playerSprite.setPosition(playerSprite.getX()+ speed , playerSprite.getY());
+            x += speed;
         }
+        playerSprite.setPosition(x,y);
         checkPlayerOutOfBound();
     }
     
     private void checkPlayerOutOfBound(){
-        if(playerSprite.getX() <= minX){
-            playerSprite.setPosition(minX, playerSprite.getY());
+        float x = playerSprite.getX();
+        float y = playerSprite.getY();
+        if(x <= 0){
+            x = 0;
         }
-        else if(playerSprite.getX() >= maxX){
-            playerSprite.setPosition(maxX, playerSprite.getY());
+        else if(x >= world.MAP_X-50){
+            x = world.MAP_X-50;
         }
-        if(playerSprite.getY() <= minY){
-            playerSprite.setPosition(playerSprite.getX(), minY);
+        if(y <= 0){
+            y = 0;
         }
-        else if(playerSprite.getY() >= maxY){
-            playerSprite.setPosition(playerSprite.getX(), maxY);
+        else if(y >= world.MAP_Y-50){
+            y = world.MAP_Y - 50;
         }
+        playerSprite.setPosition(x, y);
     }
 
     void draw(SpriteBatch batch) {
         batch.draw(sonicX,gameScreen.gamePositionX(), gameScreen.gamePositionY());
     }
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-
-    

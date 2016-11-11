@@ -5,9 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class CinosGame extends Game {
     public SpriteBatch batch;
-    public static final int HEIGHT = 600;
-    public static final int WIDTH = 800;
-        
+    
     @Override
     public void create () {
         batch = new SpriteBatch();

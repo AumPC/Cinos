@@ -6,7 +6,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -49,8 +48,6 @@ public class GameScreen extends ScreenAdapter {
         worldRenderer.render(delta);
         System.out.println(gamePositionX() + " && "+ gamePositionY());
     }
- 
-    
     
     private void cameraUpdate(){
         float x = world.sonic.playerSprite.getX();
