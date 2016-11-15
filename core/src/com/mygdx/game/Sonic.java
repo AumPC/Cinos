@@ -25,17 +25,19 @@ public class Sonic {
     private GameScreen gameScreen;
     private World world;
     public Sprite playerSprite;
-
+    private Walk walk;
+    
     private int speed = 5;
     private boolean isJump1 = false;
     private boolean isJump2 = false;
     private int countY = 0;
     
-    public Sonic(GameScreen gameScreen,World world) {
+    public Sonic(GameScreen gameScreen,World world,Walk walk) {
         this.gameScreen = gameScreen;
         this.world = world;
         setTextureRegion();
         setUpSprite();
+        this.walk = walk;
     }
     
     private void setTextureRegion(){
@@ -55,7 +57,7 @@ public class Sonic {
     
     private void setUpSprite(){
 	playerSprite = new Sprite(playerFramesLeft[0]);
-        playerSprite.setPosition(100, 300);
+        playerSprite.setPosition(100, 450);
     }
     
     public void update(){
@@ -63,31 +65,41 @@ public class Sonic {
     }
     
     private void updatePosition(){
-        System.out.println(countY);
         float x = playerSprite.getX();
         float y = playerSprite.getY();
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
             if(isJump1 == false){
-                countY = 10;
+                countY = 20;
                 isJump1 = true;
             } else if(isJump2 == false){
-                countY = 10;
+                countY = 20;
                 isJump2 = true;
             }
         }
         if(countY > 0){
-            y += 5;
+            y += 7;
             countY--;
         } else {
-            isJump1 = false;
-            isJump2 = false;
-            y -= 5;
+            if(y <= walk.baseY(playerSprite.getX())){
+                isJump1 = false;
+                isJump2 = false; 
+            } else {
+                y -= 5;
+            }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             x -= speed;
+            x = walk.baseX(x,y,-1);
+//            if(countY == 0){
+//                y += (float) speed*world.slope[(int)x/100]/100;
+//            }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             x += speed;
+            x = walk.baseX(x,y,+1);
+//            if(countY == 0){
+//                y -= (float) speed*world.slope[(int)x/100]/100;
+//            }
         }
         playerSprite.setPosition(x,y);
         checkPlayerOutOfBound();
@@ -111,7 +123,9 @@ public class Sonic {
         playerSprite.setPosition(x, y);
     }
 
-    void draw(SpriteBatch batch) {
+    private void draw(SpriteBatch batch) {
         batch.draw(sonicX,gameScreen.gamePositionX(), gameScreen.gamePositionY());
     }
+    
+
 }

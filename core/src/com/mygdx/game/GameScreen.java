@@ -46,7 +46,6 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(gameCam.combined);
         worldRenderer.render(delta);
-        System.out.println(gamePositionX() + " && "+ gamePositionY());
     }
     
     private void cameraUpdate(){
@@ -65,7 +64,6 @@ public class GameScreen extends ScreenAdapter {
             y = (world.MAP_Y - (Gdx.graphics.getHeight() / 2));
         }
         gameCam.position.set(x, y, 0);
-        System.out.println("POS" + x + " && "+ y);
         gameCam.update();
     }
     

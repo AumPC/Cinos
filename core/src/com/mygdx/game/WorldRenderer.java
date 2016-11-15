@@ -31,7 +31,7 @@ class WorldRenderer {
         batch = cinosgame.batch;
         sonic = world.getSonic();
         BG = new Texture("Windy_Hill_Background.png");
-        Map = new Texture("ghz-222.png");
+        Map = new Texture("Untitled-2.png");
 }
     
     public void render(float delta){
