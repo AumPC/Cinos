@@ -14,27 +14,30 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class Ring {
     private Texture ringPic;
-    private TextureRegion[] playerFramesLeft;
+    TextureRegion[] ringPicFrame;
     private int frameCols = 4;	
     private int frameRows = 1;
-    
+    public int x;
+    public int y;
+    public boolean haveRing;
     private GameScreen gameScreen;
     private World world;
     
-    public Ring(GameScreen gameScreen,World world,Walk walk) {
-        this.gameScreen = gameScreen;
-        this.world = world;
+    public Ring(int x, int y) {
+        this.x = x;
+        this.y = y;
+        haveRing = true;
     }
     
     private void setTextureRegion(){
         ringPic = new Texture("ringPic.png");
         TextureRegion[][] tmp = TextureRegion.split(ringPic, ringPic.getWidth()/frameCols
                                                            , ringPic.getHeight()/frameRows);
-        playerFramesLeft = new TextureRegion[frameRows * frameCols];
+        ringPicFrame = new TextureRegion[frameRows * frameCols];
         int row1 = 0;
         for(int row2 = 0; row2 < frameRows; row2++){
             for(int col2 = 0; col2 < frameCols; col2++){
-                playerFramesLeft[row1] = tmp[row2][col2];
+                ringPicFrame[row1] = tmp[row2][col2];
                 row1++;
             }
         }

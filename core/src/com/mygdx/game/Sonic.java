@@ -67,6 +67,14 @@ public class Sonic {
     private void updatePosition(){
         float x = playerSprite.getX();
         float y = playerSprite.getY();
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if(walk.canMoveX(x,y,-1))
+                x -= speed;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            if(walk.canMoveX(x,y,1))
+                x += speed;
+        }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
             if(isJump1 == false){
                 countY = 20;
@@ -76,6 +84,12 @@ public class Sonic {
                 isJump2 = true;
             }
         }
+        y = checkIsOnBase(y);
+        playerSprite.setPosition(x,y);
+        checkPlayerOutOfBound();
+    }
+    
+    private float checkIsOnBase(float y){
         if(countY > 0){
             y += 7;
             countY--;
@@ -84,25 +98,16 @@ public class Sonic {
                 isJump1 = false;
                 isJump2 = false; 
             } else {
-                y -= 5;
+                int down;
+                for(down = 2;down<=speed;down++){
+                    if(y-down <= walk.baseY(playerSprite.getX()))
+                        break;
+                }
+                y -= down-1;
+                System.out.println(walk.baseY(playerSprite.getX())+" "+y);
             }
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            x -= speed;
-            x = walk.baseX(x,y,-1);
-//            if(countY == 0){
-//                y += (float) speed*world.slope[(int)x/100]/100;
-//            }
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            x += speed;
-            x = walk.baseX(x,y,+1);
-//            if(countY == 0){
-//                y -= (float) speed*world.slope[(int)x/100]/100;
-//            }
-        }
-        playerSprite.setPosition(x,y);
-        checkPlayerOutOfBound();
+        return y;
     }
     
     private void checkPlayerOutOfBound(){
@@ -122,10 +127,8 @@ public class Sonic {
         }
         playerSprite.setPosition(x, y);
     }
-
+        
     private void draw(SpriteBatch batch) {
         batch.draw(sonicX,gameScreen.gamePositionX(), gameScreen.gamePositionY());
     }
-    
-
 }

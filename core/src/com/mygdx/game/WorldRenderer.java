@@ -22,16 +22,18 @@ class WorldRenderer {
     private Sonic sonic;
     private GameScreen gameScreen;
     public static final int BLOCK_SIZE = 40;
+    
+
 
     public WorldRenderer(CinosGame cinosgame, World world, GameScreen gameScreen) {
         this.cinosgame = cinosgame;
         this.world = world;
         this.gameScreen = gameScreen;
-        
         batch = cinosgame.batch;
         sonic = world.getSonic();
         BG = new Texture("Windy_Hill_Background.png");
         Map = new Texture("Untitled-2.png");
+
 }
     
     public void render(float delta){

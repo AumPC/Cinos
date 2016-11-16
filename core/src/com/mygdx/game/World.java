@@ -14,7 +14,6 @@ class World {
     private GameScreen gameScreen;
     public Sonic sonic;
     public Walk walk;
-
     public float MAP_X = 3600;
     public float MAP_Y = 600;
     
