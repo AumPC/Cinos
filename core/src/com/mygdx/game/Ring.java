@@ -6,6 +6,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -22,13 +23,32 @@ public class Ring {
     public boolean haveRing;
     private GameScreen gameScreen;
     private World world;
+    int frame = 0;
     
     public Ring(int x, int y) {
         this.x = x;
         this.y = y;
+        setTextureRegion();
         haveRing = true;
     }
     
+        
+    public void update(){
+//        collectRing();
+    }
+    
+//    public void collectRing(){
+//        float sonicX = world.getSonic().playerSprite.getX();
+//        float sonicY = world.getSonic().playerSprite.getY();
+//        float sonicYMax = world.getSonic().playerSprite.getY()+world.getSonic().playerSprite.getHeight();
+//        if(sonicX >= x && sonicX <= x+30){
+//            if(y >= sonicY && y <= sonicYMax){
+//                world.numRings += 1;
+//                haveRing = false;
+//            }
+//        }
+//    }
+        
     private void setTextureRegion(){
         ringPic = new Texture("ringPic.png");
         TextureRegion[][] tmp = TextureRegion.split(ringPic, ringPic.getWidth()/frameCols
@@ -41,5 +61,25 @@ public class Ring {
                 row1++;
             }
         }
+    }
+    
+    void draw(SpriteBatch batch) {
+        switch ((frame/5)%4) {
+            case 0:
+                batch.draw(ringPicFrame[0],x, y);
+                break;
+            case 1:
+                batch.draw(ringPicFrame[1],x, y);
+                break;
+            case 2:
+                batch.draw(ringPicFrame[2],x, y);    
+                break;
+            case 3:
+                batch.draw(ringPicFrame[3],x, y);
+                break;
+            default:
+                break;
+        }
+        frame++;
     }
 }

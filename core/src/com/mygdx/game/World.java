@@ -16,6 +16,9 @@ class World {
     public Walk walk;
     public float MAP_X = 3600;
     public float MAP_Y = 600;
+    public int numRings = 0;
+    public Motobug motobug;
+    public Ring ring;
     
     //                           01234567890123456789012345678901234567890123456789012345678901234567890123456789012345
     public String[] baseWalk = {"......................................................................................",
@@ -34,13 +37,25 @@ class World {
         this.gameScreen = gameScreen;
         walk = new Walk(gameScreen,this);
         sonic = new Sonic(gameScreen,this,walk);
+        motobug = new Motobug(gameScreen,800,200,this,walk);
+        ring = new Ring(400,100);
     }
 
     public void update(float delta) {
         sonic.update();
+        motobug.update();
+        ring.update();
     }
 
     Sonic getSonic() {
         return sonic;
+    }
+    
+    Motobug getMotobug() {
+        return motobug;
+    }
+    
+    Ring getRing() {
+        return ring;
     }
 }

@@ -40,7 +40,6 @@ public class Walk {
         }
         int row = (int) (x)/100;
         int col = (int)(600-y)/100;
-        System.out.println(row + "  " + col + "\n" + x);
         if(world.baseWalk[col].charAt(row)=='#'){
             return false;
         }

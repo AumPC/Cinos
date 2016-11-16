@@ -42,6 +42,8 @@ class WorldRenderer {
         batch.draw(BG, gameScreen.gamePositionX(), gameScreen.gamePositionY());
         batch.draw(Map, 0,0);
         sonic.playerSprite.draw(batch);
+        world.getMotobug().draw(batch);
+        world.getRing().draw(batch);
         batch.end();
     }
 }
