@@ -12,19 +12,20 @@ package com.mygdx.game;
 public class Walk {
     private GameScreen gameScreen;
     private World world;
-    public Sonic sonic;
+    private Sonic sonic;
     
     public Walk(GameScreen gameScreen,World world) {
         this.gameScreen = gameScreen;
         this.world = world;
     }
     
-    public float baseY(float x) {
+    public float baseY(float x,float width) {
         int row = (int) (x)/100;
+        int row2 = (int) (x+width)/100;
         int col = 0;
         for(col=0;col<world.baseWalk.length;col++)
         {
-            if(world.baseWalk[col].charAt(row)=='#'){
+            if(world.baseWalk[col].charAt(row)=='#' || world.baseWalk[col].charAt(row2)=='#'){
                 break;
             }
         }

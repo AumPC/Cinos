@@ -1,9 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,13 +18,15 @@ public class Motobug {
     private Texture motobugPicRight;
     private World world;
     private Walk walk;
-    int movement = 0;
-    int x;
-    int y;
-    int speed  = 5;
-    boolean direction = true;
-    boolean exist;
     private GameScreen gameScreen;
+    
+    private int x;
+    private int y;
+    private int speed  = 5;
+    private int movement = 0;
+    private boolean direction = true;
+    private boolean exist;
+    private int hitDelay = 20;
     
     public Motobug (GameScreen gameScreen,int x,int y,World world,Walk walk) {
         this.world = world;
@@ -41,38 +41,43 @@ public class Motobug {
     private void setTexture(){
         motobugPicLeft = new Texture("motobugleft.gif");
         motobugPicRight = new Texture("motobugright.gif");
-        if(y>walk.baseY(x)){
-            y = (int)walk.baseY(x);
+        if(y>walk.baseY(x,48)){
+            y = (int)walk.baseY(x,48);
         }
     }
     
     public void update(){
-        move();
-        if(isHit()){
-            hitBySonic();
+        if(exist){
+            move();
+            if(isHit() && hitDelay <= 0){
+                hitBySonic();
+               hitDelay = 20;
+            }
+            hitDelay--;
         }
     }
     
     private void move(){
-        if(movement<50 && direction == true){
+        if(movement<40 && direction == true){
             movement++;
             
             x += speed;
-        } else if(movement>-50){
+        } else if(movement>-40){
             movement--;
             x -= speed;
         }
-        if(movement == 50 || movement == -50){
+        if(movement == 40 || movement == -40){
             direction = !direction;
         }
     }
     
     private void hitBySonic(){
-        if(world.getSonic().isJump==true && world.getSonic().playerSprite.getY() <y-48){
+        if(world.getSonic().isJump==true && world.getSonic().playerSprite.getY() <y+48){
             exist = false;
+            gameScreen.score += 500;
         } else {
-            if(world.numRings > 0){
-                world.numRings = 0;
+            if(gameScreen.numRings > 0){
+                gameScreen.numRings = 0;
             } else {
                 System.out.println("GAMEOVER");
                 gameScreen.gameState = 2;
@@ -93,10 +98,12 @@ public class Motobug {
     }
         
     void draw(SpriteBatch batch) {
-        if(direction == true){
-            batch.draw(motobugPicRight,x, y);
-        } else {
-            batch.draw(motobugPicLeft,x, y);
+        if(exist){
+            if(direction == true){
+                batch.draw(motobugPicRight,x, y);
+           } else {
+                batch.draw(motobugPicLeft,x, y);
+            }
         }
     }
 }

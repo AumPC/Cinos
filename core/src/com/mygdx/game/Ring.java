@@ -14,26 +14,27 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * @author APC
  */
 public class Ring {
-    private Texture ringPic;
-    TextureRegion[] ringPicFrame;
-    private int frameCols = 4;	
-    private int frameRows = 1;
-    public int x;
-    public int y;
-    public boolean haveRing;
     private GameScreen gameScreen;
     private World world;
-    int frame = 0;
+    private Texture ringPic;
+    private TextureRegion[] ringPicFrame;
+    private int frameCols = 4;	
+    private int frameRows = 1;
     
-    public Ring(int x, int y,World world) {
+    private int x;
+    private int y;
+    private boolean haveRing;
+    private int frame = 0;
+    
+    public Ring(int x, int y,World world, GameScreen gameScreen) {
         this.x = x;
         this.y = y;
         this.world = world;
+        this.gameScreen = gameScreen;
         setTextureRegion();
         haveRing = true;
     }
     
-        
     public void update(){
         if(haveRing){
             collectRing();
@@ -47,8 +48,9 @@ public class Ring {
         float sonicYMax = world.getSonic().playerSprite.getY()+world.getSonic().playerSprite.getHeight();
         if(sonicX >= x && sonicX <= x+30){
             if(y >= sonicY && y <= sonicYMax){
-                world.numRings += 1;
+                gameScreen.numRings += 1;
                 haveRing = false;
+                gameScreen.score += 50;
             }
         }
     }
@@ -88,5 +90,4 @@ public class Ring {
             frame++;
         }
     }
-    
 }

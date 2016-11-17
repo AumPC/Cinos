@@ -24,18 +24,19 @@ class GameOverPage {
     private SpriteBatch batch;
     private BitmapFont font;
     
-//    GameOverPage(CinosGame cinosgame,MainManu mainManu) {
     GameOverPage(CinosGame cinosgame,GameScreen gameScreen) {
         this.cinosgame = cinosgame;
         this.batch = cinosgame.batch;
         this.gameScreen = gameScreen;
         BGGameOver = new Texture("gameover.png");
         this.font = new BitmapFont();
-        
     }
+    
     public void render(float delta){
         batch.begin();
         batch.draw(BGGameOver,gameScreen.gamePositionX(), gameScreen.gamePositionY());
+//        font.draw(batch, "Ring : "+""+ gameScreen.numRings,gameScreen.gamePositionX()+ 350, gameScreen.gamePositionY()+250);
+//        font.draw(batch, "Score : "+""+ gameScreen.score,gameScreen.gamePositionX()+ 325, gameScreen.gamePositionY()+300);
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             cinosgame.dispose();
             cinosgame.create();

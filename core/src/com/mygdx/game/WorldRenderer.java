@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author APC
  */
 class WorldRenderer {
-    
     private Texture BG;
     private Texture Map;
     private CinosGame cinosgame;
@@ -22,21 +21,18 @@ class WorldRenderer {
     private World world;
     private Sonic sonic;
     private GameScreen gameScreen;
-    public static final int BLOCK_SIZE = 40;
     private BitmapFont font;
-    private Texture BGGameOver;
 
     public WorldRenderer(CinosGame cinosgame, World world, GameScreen gameScreen) {
         this.cinosgame = cinosgame;
         this.world = world;
         this.gameScreen = gameScreen;
-        batch = cinosgame.batch;
+        this.batch = cinosgame.batch;
         sonic = world.getSonic();
         BG = new Texture("Windy_Hill_Background.png");
         Map = new Texture("Untitled-2.png");        
         this.font = new BitmapFont();
-        BGGameOver = new Texture("gameover.png");
-
+        font.getData().setScale((float) 1.5); 
 }
     
     public void render(float delta){
@@ -49,12 +45,12 @@ class WorldRenderer {
             for(Motobug m : world.motobugs){
                 m.draw(batch);
             }
-            this.font.draw(batch, "Ring : "+""+ world.numRings,gameScreen.gamePositionX()+ 700, gameScreen.gamePositionY()+60);
+            this.font.draw(batch, "Ring : "+""+ gameScreen.numRings,gameScreen.gamePositionX()+ 50, gameScreen.gamePositionY()+575);
+            this.font.draw(batch, "Score : "+""+ gameScreen.score,gameScreen.gamePositionX()+ 650, gameScreen.gamePositionY()+575);
             for(Ring a : world.rings){
                 a.draw(batch);
             }
         }
         batch.end();
-
     }
 }

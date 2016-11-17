@@ -14,46 +14,61 @@ import java.util.ArrayList;
 class World {
     private CinosGame cinosgame;
     private GameScreen gameScreen;
+    private GameOverPage gameOverPage;
     public Sonic sonic;
     public Walk walk;
     public float MAP_X = 3600;
     public float MAP_Y = 600;
-    public int numRings = 0;
-        private GameOverPage gameOverPage;
+    private int n = 1;
+    public SpecialBox specialBox;
     ArrayList<Ring> rings;
-    ArrayList<Motobug> motobugs;   
-    //                           01234567890123456789012345678901234567890123456789012345678901234567890123456789012345
-    public String[] baseWalk = {"......................................................................................",
-                                "......................................................................................",
-                                "......................................................................................",
-                                "......................................................................................",
-                                "......###...###.......................................................................",
-                                "######...###.........................................................................."};
-//    public int startY = 270;
-//    public int[] slope =  {  0,  0,-25,  0,  0, 20, 25,  0 , 0,-50,
-//                             0,-99,  0,  0,  0,  0,  0,  0,  0,  0,
-//                             0,  0,  0,  0,  0,  0};
+    ArrayList<Motobug> motobugs;
+    //                           012345678901234567890123456789012345
+    public String[] baseWalk = {".....................................",
+                                ".....................................",
+                                "...........####..................###.",
+                                "........#......#...............##....",
+                                "......##.............##.....###......",
+                                "#####...........#####..#####........."};
 
     World(CinosGame cinosgame,GameScreen gameScreen) {
+        SpecialBox specialBox = new SpecialBox(1300,550,this,gameScreen);
         this.cinosgame = cinosgame;
         this.gameScreen = gameScreen;
         walk = new Walk(gameScreen,this);
         sonic = new Sonic(gameScreen,this,walk);
-        
         motobugs = new ArrayList<Motobug>();
-        motobugs.add(new Motobug(gameScreen,800,200,this,walk));
-        motobugs.add(new Motobug(gameScreen,1000,200,this,walk));
-        
+        addMotobug();
         rings = new ArrayList<Ring>();
-        rings.add(new Ring(400,100,this));
-        rings.add(new Ring(450,100,this));
-        rings.add(new Ring(500,100,this));
+        addRing();
+    }
+    
+    public void addRing(){
+        for(int x=350;x<=450;x+=50){
+            for(int y=100;y<=200;y+=50){
+                rings.add(new Ring(x,y,this,gameScreen));
+            }
+        }
+        for(int x=2400;x<=2700;x+=50){
+            for(int y=150;y<=300;y+=50){
+                rings.add(new Ring(x,y,this,gameScreen));
+            }
+        }
+        for(int x=2300;x<=3600;x+=50){
+            rings.add(new Ring(x,400,this,gameScreen));
+        }
+        rings.add(new Ring(900,400,this,gameScreen));
+        rings.add(new Ring(950,450,this,gameScreen));
+        rings.add(new Ring(1000,500,this,gameScreen));
+        rings.add(new Ring(1050,550,this,gameScreen));
     }
 
+    public void addMotobug(){
+        motobugs.add(new Motobug(gameScreen,1250,510,this,walk));
+        motobugs.add(new Motobug(gameScreen,1800,200,this,walk));
+        motobugs.add(new Motobug(gameScreen,2500,200,this,walk)); 
+    }
     public void update(float delta) {
-        if(gameScreen.gameState == 0){
-        }
-        if(gameScreen.gameState == 1){
         sonic.update();
         for(Motobug m : motobugs){
             m.update();
@@ -61,15 +76,19 @@ class World {
         for(Ring a: rings){
             a.update();
         }
+        if(gameScreen.score >= 4200*n){
+            addMotobug();
+            addRing();
+//            SpecialBox specialBox = new SpecialBox(1300,550,this,gameScreen);
+            n++;
         }
-//        if(gameScreen.gameState == 2){
-//            gameOverPage.gameOver();
-//            Gdx.gl.glClearColor(0, 0, 0, 1);
-//            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//        }
     }
 
     Sonic getSonic() {
         return sonic;
+    }
+    
+    SpecialBox getSpecialBox(){
+        return specialBox;
     }
 }

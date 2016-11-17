@@ -23,27 +23,26 @@ public class GameScreen extends ScreenAdapter {
     private World world;
     private WorldRenderer worldRenderer;
     private Sonic sonic;
-    
-    public GameOverPage gameOverPage;
-    
+    private GameOverPage gameOverPage;
     public OrthographicCamera gameCam; 
     public Viewport gamePort;
-    int gameState = 1;
+    
+    public int gameState = 1;
+    public int numRings = 0;
+    public int score = 0;
 
     public GameScreen(CinosGame cinosgame) {
         this.cinosgame = cinosgame;
-
+        this.batch = cinosgame.batch;
+        this.gameOverPage = new GameOverPage(cinosgame,this);
         world = new World(cinosgame,this);
         worldRenderer = new WorldRenderer(cinosgame,world,this);
         sonic = world.getSonic();
-        batch = cinosgame.batch;
-        this.gameOverPage = new GameOverPage(cinosgame,this);
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(world.MAP_X,world.MAP_Y,gameCam);  
         gameCam.setToOrtho(false, 800, 600);
     }
-    
-    
+
     @Override
     public void render(float delta) {
         if(gameState == 1){
