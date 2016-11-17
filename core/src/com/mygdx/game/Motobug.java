@@ -68,13 +68,14 @@ public class Motobug {
     }
     
     private void hitBySonic(){
-        if(world.getSonic().isJump==true){
+        if(world.getSonic().isJump==true && world.getSonic().playerSprite.getY() <y-48){
             exist = false;
         } else {
             if(world.numRings > 0){
                 world.numRings = 0;
             } else {
                 System.out.println("GAMEOVER");
+                gameScreen.gameState = 2;
             }
         }
     }
@@ -82,9 +83,9 @@ public class Motobug {
     public boolean isHit(){
         float sonicX = world.getSonic().playerSprite.getX() + world.getSonic().playerSprite.getWidth()/2;
         float sonicY = world.getSonic().playerSprite.getY();
-        float sonicYMax = world.getSonic().playerSprite.getY()+world.getSonic().playerSprite.getHeight();
-        if(sonicX >= x && sonicX <= x+100){
-            if(y >= sonicY && y <= sonicYMax){
+        float sonicYMax = world.getSonic().playerSprite.getY()-world.getSonic().playerSprite.getHeight();
+        if(sonicX >= x && sonicX <= x+48){
+            if(y <= sonicY && y >= sonicYMax){
                 return true;
             }
         }

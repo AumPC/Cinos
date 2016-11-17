@@ -34,13 +34,14 @@ public class Walk {
         return 600-col*100;
     }
     
-    boolean canMoveX(float x,float y,int dir) {
+    boolean canMoveX(float x,float y,int dir,float width,int speed) {
         if(y == 0 || y == 100 || y == 200 || y == 300 || y == 400 || y == 500){
             y += 1;
         }
-        int row = (int) (x)/100;
+        int row = (int) (x+speed*dir)/100;
+        int row2 = (int) (x+width+speed*dir)/100;
         int col = (int)(600-y)/100;
-        if(world.baseWalk[col].charAt(row)=='#'){
+        if(world.baseWalk[col].charAt(row)=='#' || world.baseWalk[col].charAt(row2)=='#'){
             return false;
         }
         return true;

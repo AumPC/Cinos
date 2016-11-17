@@ -23,31 +23,42 @@ public class GameScreen extends ScreenAdapter {
     private World world;
     private WorldRenderer worldRenderer;
     private Sonic sonic;
+    
+    public GameOverPage gameOverPage;
+    
     public OrthographicCamera gameCam; 
     public Viewport gamePort;
+    int gameState = 1;
 
     public GameScreen(CinosGame cinosgame) {
         this.cinosgame = cinosgame;
+
         world = new World(cinosgame,this);
         worldRenderer = new WorldRenderer(cinosgame,world,this);
         sonic = world.getSonic();
         batch = cinosgame.batch;
-        
+        this.gameOverPage = new GameOverPage(cinosgame,this);
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(world.MAP_X,world.MAP_Y,gameCam);
+        gamePort = new FitViewport(world.MAP_X,world.MAP_Y,gameCam);  
         gameCam.setToOrtho(false, 800, 600);
     }
     
+    
     @Override
     public void render(float delta) {
-        world.update(delta);
-        cameraUpdate();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(gameCam.combined);
-        worldRenderer.render(delta);
+        if(gameState == 1){
+            world.update(delta);
+            cameraUpdate();   
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.setProjectionMatrix(gameCam.combined);
+            worldRenderer.render(delta);
+        }
+        if(gameState == 2){
+            gameOverPage.render(delta);
+        }
     }
-    
+
     private void cameraUpdate(){
         float x = world.sonic.playerSprite.getX();
         if(x < (Gdx.graphics.getWidth() / 2)){
@@ -66,11 +77,11 @@ public class GameScreen extends ScreenAdapter {
         gameCam.position.set(x, y, 0);
         gameCam.update();
     }
-    
+
     public float gamePositionX (){
         return gameCam.position.x - (Gdx.graphics.getWidth() / 2);
     }
-	
+
     public float gamePositionY (){
         return gameCam.position.y - (Gdx.graphics.getHeight() / 2);
     }

@@ -6,6 +6,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -22,8 +23,8 @@ class WorldRenderer {
     private Sonic sonic;
     private GameScreen gameScreen;
     public static final int BLOCK_SIZE = 40;
-    
-
+    private BitmapFont font;
+    private Texture BGGameOver;
 
     public WorldRenderer(CinosGame cinosgame, World world, GameScreen gameScreen) {
         this.cinosgame = cinosgame;
@@ -32,18 +33,28 @@ class WorldRenderer {
         batch = cinosgame.batch;
         sonic = world.getSonic();
         BG = new Texture("Windy_Hill_Background.png");
-        Map = new Texture("Untitled-2.png");
+        Map = new Texture("Untitled-2.png");        
+        this.font = new BitmapFont();
+        BGGameOver = new Texture("gameover.png");
 
 }
     
     public void render(float delta){
         batch = cinosgame.batch;
         batch.begin();
-        batch.draw(BG, gameScreen.gamePositionX(), gameScreen.gamePositionY());
-        batch.draw(Map, 0,0);
-        sonic.playerSprite.draw(batch);
-        world.getMotobug().draw(batch);
-        world.getRing().draw(batch);
+        if(gameScreen.gameState == 1){
+            batch.draw(BG, gameScreen.gamePositionX(), gameScreen.gamePositionY());
+            batch.draw(Map, 0,0);
+            sonic.playerSprite.draw(batch);
+            for(Motobug m : world.motobugs){
+                m.draw(batch);
+            }
+            this.font.draw(batch, "Ring : "+""+ world.numRings,gameScreen.gamePositionX()+ 700, gameScreen.gamePositionY()+60);
+            for(Ring a : world.rings){
+                a.draw(batch);
+            }
+        }
         batch.end();
+
     }
 }

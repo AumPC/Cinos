@@ -5,6 +5,8 @@
  */
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author APC
@@ -17,9 +19,9 @@ class World {
     public float MAP_X = 3600;
     public float MAP_Y = 600;
     public int numRings = 0;
-    public Motobug motobug;
-    public Ring ring;
-    
+        private GameOverPage gameOverPage;
+    ArrayList<Ring> rings;
+    ArrayList<Motobug> motobugs;   
     //                           01234567890123456789012345678901234567890123456789012345678901234567890123456789012345
     public String[] baseWalk = {"......................................................................................",
                                 "......................................................................................",
@@ -37,25 +39,37 @@ class World {
         this.gameScreen = gameScreen;
         walk = new Walk(gameScreen,this);
         sonic = new Sonic(gameScreen,this,walk);
-        motobug = new Motobug(gameScreen,800,200,this,walk);
-        ring = new Ring(400,100);
+        
+        motobugs = new ArrayList<Motobug>();
+        motobugs.add(new Motobug(gameScreen,800,200,this,walk));
+        motobugs.add(new Motobug(gameScreen,1000,200,this,walk));
+        
+        rings = new ArrayList<Ring>();
+        rings.add(new Ring(400,100,this));
+        rings.add(new Ring(450,100,this));
+        rings.add(new Ring(500,100,this));
     }
 
     public void update(float delta) {
+        if(gameScreen.gameState == 0){
+        }
+        if(gameScreen.gameState == 1){
         sonic.update();
-        motobug.update();
-        ring.update();
+        for(Motobug m : motobugs){
+            m.update();
+        }
+        for(Ring a: rings){
+            a.update();
+        }
+        }
+//        if(gameScreen.gameState == 2){
+//            gameOverPage.gameOver();
+//            Gdx.gl.glClearColor(0, 0, 0, 1);
+//            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//        }
     }
 
     Sonic getSonic() {
         return sonic;
-    }
-    
-    Motobug getMotobug() {
-        return motobug;
-    }
-    
-    Ring getRing() {
-        return ring;
     }
 }

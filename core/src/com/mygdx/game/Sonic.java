@@ -86,36 +86,44 @@ public class Sonic {
     
     public void update(){
         updatePosition();
+        playerSprite.setRegion(changePicFrame());
     }
     
     private void updatePosition(){
         float x = playerSprite.getX();
         float y = playerSprite.getY();
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if(walk.canMoveX(x,y,-1))
+            direction = -1;
+            if(walk.canMoveX(x,y,-1,playerSprite.getWidth(),velocity)) {
                 x -= velocity;
-            keyLeftPress = true;
-            accCount -= 1;
-            if(accCount == 0){
-                velocity += acc;
+            } else {
+                for(int i=1;i<velocity;i++){
+                    if(walk.canMoveX(x,y,-1,playerSprite.getWidth(),velocity)) {
+                        x -= velocity+i;
+                        break;
+                    }
+                }
             }
+            keyLeftPress = true;
         } else {
             keyLeftPress = false;
-            accCount = 3;
-            velocity = speed;
         }
+        isKeyPress(keyLeftPress,keyRightPress);
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if(walk.canMoveX(x,y,1))
+            direction = 1;
+            if(walk.canMoveX(x,y,1,playerSprite.getWidth(),velocity)) {
                 x += velocity;
+            }else {
+                for(int i=1;i<velocity;i++){
+                    if(walk.canMoveX(x,y,1,playerSprite.getWidth(),velocity)) {
+                        x += velocity+i;
+                        break;
+                    }
+                }
+            }
             keyRightPress = true;
-            if(accCount == 0){
-                velocity += acc;
-            System.out.println(velocity);
         } else {
             keyRightPress = false;
-                        accCount = 10;
-            velocity = speed;
-            }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP) && keyUpDelay == 0) {
             isJump = true;
@@ -135,6 +143,9 @@ public class Sonic {
         playerSprite.setPosition(x,y);
         if(y == walk.baseY(playerSprite.getX())){
             isJump = false;
+        }
+        if(y<10){
+            gameScreen.gameState = 2;
         }
         checkPlayerOutOfBound();
     }
@@ -176,11 +187,7 @@ public class Sonic {
         }
         playerSprite.setPosition(x, y);
     }
-        
-    private void draw(SpriteBatch batch) {
-        batch.draw(changePicFrame(),gameScreen.gamePositionX(), gameScreen.gamePositionY());
-    }
-    
+
     private TextureRegion changePicFrame(){
         if(direction == 1){
             switch(velocity){
@@ -189,8 +196,7 @@ public class Sonic {
                 case 8: return playerFramesRight[3];
                 case 9: return playerFramesRight[4];
                 case 10: return playerFramesRight[5];
-                case 11: return playerFramesRight[6];
-                case 12: return playerFramesRight[7];
+                case 11: case 12: return playerFramesRight[6];
                 default: return playerFramesRight[0];
             }
         } else {
@@ -200,10 +206,22 @@ public class Sonic {
                 case 8: return playerFramesLeft[3];
                 case 9: return playerFramesLeft[4];
                 case 10: return playerFramesLeft[5];
-                case 11: return playerFramesLeft[6];
-                case 12: return playerFramesLeft[7];
+                case 11: case 12: return playerFramesLeft[6];
                 default: return playerFramesLeft[0];
             }
+        }
+    }
+    
+    private void isKeyPress(boolean keyPress,boolean otherKeyPress){
+        if((keyPress || otherKeyPress) && (direction == 1 || direction == -1)){
+            accCount -= 1;
+            if(accCount == 0 && velocity < maxSpeed){
+                velocity += acc;
+                accCount = 3;
+            }
+        } else {
+            accCount = 3;
+            velocity = speed;
         }
     }
 }
