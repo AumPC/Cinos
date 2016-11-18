@@ -12,7 +12,6 @@ package com.mygdx.game;
 public class Walk {
     private GameScreen gameScreen;
     private World world;
-    private Sonic sonic;
     
     public Walk(GameScreen gameScreen,World world) {
         this.gameScreen = gameScreen;

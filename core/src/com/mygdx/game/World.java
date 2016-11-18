@@ -14,7 +14,6 @@ import java.util.ArrayList;
 class World {
     private CinosGame cinosgame;
     private GameScreen gameScreen;
-    private GameOverPage gameOverPage;
     public Sonic sonic;
     public Walk walk;
     public float MAP_X = 3600;
