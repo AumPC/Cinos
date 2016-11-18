@@ -196,28 +196,40 @@ public class Sonic {
             if(isJump && velocity == speed){
                 return playerFramesRight[6];
             } else {
-                switch(velocity){
-                    case 6: return playerFramesRight[1];
-                    case 7: return playerFramesRight[2];
-                    case 8: return playerFramesRight[3];
-                    case 9: return playerFramesRight[4];
-                    case 10: return playerFramesRight[5];
-                    case 11: case 12: return playerFramesRight[6];
-                    default: return playerFramesRight[0];
+                if(velocity == 6){
+                    return playerFramesRight[1];
+                } else if(velocity == 7){
+                    return playerFramesRight[2];
+                } else if(velocity == 8){
+                    return playerFramesRight[3];
+                } else if(velocity == 9){
+                    return playerFramesRight[4];
+                } else if(velocity == 10){
+                    return playerFramesRight[5];
+                } else if(velocity == 11 || velocity == 12){
+                    return playerFramesRight[6];
+                } else {
+                    return playerFramesRight[0];
                 }
             }
         } else {
             if(isJump && velocity == speed){
                 return playerFramesLeft[6];
             } else {
-                switch(velocity){
-                   case 6: return playerFramesLeft[1];
-                    case 7: return playerFramesLeft[2];
-                    case 8: return playerFramesLeft[3];
-                    case 9: return playerFramesLeft[4];
-                    case 10: return playerFramesLeft[5];
-                   case 11: case 12: return playerFramesLeft[6];
-                    default: return playerFramesLeft[0];
+                if(velocity == 6){
+                    return playerFramesLeft[1];
+                } else if(velocity == 7){
+                    return playerFramesLeft[2];
+                } else if(velocity == 8){
+                    return playerFramesLeft[3];
+                } else if(velocity == 9){
+                    return playerFramesLeft[4];
+                } else if(velocity == 10){
+                    return playerFramesLeft[5];
+                } else if(velocity == 11 || velocity == 12){
+                    return playerFramesLeft[6];
+                } else {
+                    return playerFramesLeft[0];
                 }
             }
         }

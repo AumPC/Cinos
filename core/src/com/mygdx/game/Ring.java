@@ -71,21 +71,14 @@ public class Ring {
     
     void draw(SpriteBatch batch) {
         if(haveRing){
-            switch ((frame/5)%4) {
-                case 0:
+            if((frame/5)%4 == 0) {
                     batch.draw(ringPicFrame[0],x, y);
-                    break;
-                case 1:
+            } else if((frame/5)%4 == 1) {
                     batch.draw(ringPicFrame[1],x, y);
-                    break;
-                case 2:
+            } else if((frame/5)%4 == 2) {
                     batch.draw(ringPicFrame[2],x, y);    
-                    break;
-                case 3:
+            } else if((frame/5)%4 == 3) {
                     batch.draw(ringPicFrame[3],x, y);
-                    break;  
-                default:
-                    break;
             }
             frame++;
         }
