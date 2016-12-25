@@ -26,7 +26,7 @@ public class Ring {
     private boolean haveRing;
     private int frame = 0;
     
-    public Ring(int x, int y,World world, GameScreen gameScreen) {
+    public Ring(int x, int y, World world, GameScreen gameScreen) {
         this.x = x;
         this.y = y;
         this.world = world;
@@ -43,9 +43,9 @@ public class Ring {
     
     public void collectRing(){
         float sonicX;
-        sonicX = world.getSonic().playerSprite.getX()+world.getSonic().playerSprite.getWidth()/2;
+        sonicX = world.getSonic().playerSprite.getX() + world.getSonic().playerSprite.getWidth()/2;
         float sonicY = world.getSonic().playerSprite.getY();
-        float sonicYMax = world.getSonic().playerSprite.getY()+world.getSonic().playerSprite.getHeight();
+        float sonicYMax = world.getSonic().playerSprite.getY() + world.getSonic().playerSprite.getHeight();
         if(sonicX >= x && sonicX <= x+30){
             if(y >= sonicY && y <= sonicYMax){
                 gameScreen.numRings += 1;
@@ -72,13 +72,13 @@ public class Ring {
     void draw(SpriteBatch batch) {
         if(haveRing){
             if((frame/5)%4 == 0) {
-                    batch.draw(ringPicFrame[0],x, y);
+                    batch.draw(ringPicFrame[0], x, y);
             } else if((frame/5)%4 == 1) {
-                    batch.draw(ringPicFrame[1],x, y);
+                    batch.draw(ringPicFrame[1], x, y);
             } else if((frame/5)%4 == 2) {
-                    batch.draw(ringPicFrame[2],x, y);    
+                    batch.draw(ringPicFrame[2], x, y);    
             } else if((frame/5)%4 == 3) {
-                    batch.draw(ringPicFrame[3],x, y);
+                    batch.draw(ringPicFrame[3], x, y);
             }
             frame++;
         }

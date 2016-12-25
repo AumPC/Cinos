@@ -30,12 +30,12 @@ class World {
                                 "......##.............##.....###......",
                                 "#####...........#####.######........."};
 
-    World(CinosGame cinosgame,GameScreen gameScreen) {
-        SpecialBox specialBox = new SpecialBox(1300,550,this,gameScreen);
+    World(CinosGame cinosgame, GameScreen gameScreen) {
+        SpecialBox specialBox = new SpecialBox(1300, 550, this,gameScreen);
         this.cinosgame = cinosgame;
         this.gameScreen = gameScreen;
-        walk = new Walk(gameScreen,this);
-        sonic = new Sonic(gameScreen,this,walk);
+        walk = new Walk(gameScreen, this);
+        sonic = new Sonic(gameScreen, this,walk);
         motobugs = new ArrayList<Motobug>();
         addMotobug();
         rings = new ArrayList<Ring>();
@@ -43,29 +43,29 @@ class World {
     }
     
     public void addRing(){
-        for(int x=350;x<=450;x+=50){
-            for(int y=100;y<=200;y+=50){
-                rings.add(new Ring(x,y,this,gameScreen));
+        for(int x = 350; x <= 450; x += 50){
+            for(int y = 100;y <= 200; y += 50){
+                rings.add(new Ring(x, y, this, gameScreen));
             }
         }
-        for(int x=2400;x<=2700;x+=50){
-            for(int y=150;y<=300;y+=50){
-                rings.add(new Ring(x,y,this,gameScreen));
+        for(int x = 2400; x <= 2700; x += 50){
+            for(int y = 150; y <= 300; y += 50){
+                rings.add(new Ring(x, y, this, gameScreen));
             }
         }
-        for(int x=2300;x<=3600;x+=50){
-            rings.add(new Ring(x,400,this,gameScreen));
+        for(int x = 2300; x <= 3600; x += 50){
+            rings.add(new Ring(x, 400, this, gameScreen));
         }
-        rings.add(new Ring(900,400,this,gameScreen));
-        rings.add(new Ring(950,450,this,gameScreen));
-        rings.add(new Ring(1000,500,this,gameScreen));
-        rings.add(new Ring(1050,550,this,gameScreen));
+        rings.add(new Ring(900, 400, this, gameScreen));
+        rings.add(new Ring(950, 450, this, gameScreen));
+        rings.add(new Ring(1000, 500, this, gameScreen));
+        rings.add(new Ring(1050, 550, this, gameScreen));
     }
 
     public void addMotobug(){
-        motobugs.add(new Motobug(gameScreen,1250,510,this,walk));
-        motobugs.add(new Motobug(gameScreen,1800,200,this,walk));
-        motobugs.add(new Motobug(gameScreen,2500,200,this,walk)); 
+        motobugs.add(new Motobug(gameScreen, 1250, 510, this, walk));
+        motobugs.add(new Motobug(gameScreen, 1800, 200, this, walk));
+        motobugs.add(new Motobug(gameScreen, 2500, 200, this, walk)); 
     }
     public void update(float delta) {
         sonic.update();

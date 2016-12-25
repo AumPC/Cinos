@@ -28,7 +28,7 @@ public class Motobug {
     private boolean exist;
     private int hitDelay = 20;
     
-    public Motobug (GameScreen gameScreen,int x,int y,World world,Walk walk) {
+    public Motobug (GameScreen gameScreen, int x, int y, World world, Walk walk) {
         this.world = world;
         this.gameScreen = gameScreen;
         this.walk = walk;
@@ -41,8 +41,8 @@ public class Motobug {
     private void setTexture(){
         motobugPicLeft = new Texture("motobugleft.gif");
         motobugPicRight = new Texture("motobugright.gif");
-        if(y>walk.baseY(x,48)){
-            y = (int)walk.baseY(x,48);
+        if(y > walk.baseY(x, 48)){
+            y = (int)walk.baseY(x, 48);
         }
     }
     
@@ -58,21 +58,21 @@ public class Motobug {
     }
     
     private void move(){
-        if(movement<40 && direction == true){
+        if((movement < 40) && (direction == true)){
             movement++;
             
             x += speed;
-        } else if(movement>-40){
+        } else if(movement > -40){
             movement--;
             x -= speed;
         }
-        if(movement == 40 || movement == -40){
+        if((movement == 40) || (movement == -40)){
             direction = !direction;
         }
     }
     
     private void hitBySonic(){
-        if(world.getSonic().isJump==true && world.getSonic().playerSprite.getY() <y+48){
+        if((world.getSonic().isJump == true) && (world.getSonic().playerSprite.getY() < y+48)){
             exist = false;
             gameScreen.score += 500;
         } else {
@@ -88,7 +88,7 @@ public class Motobug {
     public boolean isHit(){
         float sonicX = world.getSonic().playerSprite.getX() + world.getSonic().playerSprite.getWidth()/2;
         float sonicY = world.getSonic().playerSprite.getY();
-        float sonicYMax = world.getSonic().playerSprite.getY()-world.getSonic().playerSprite.getHeight();
+        float sonicYMax = world.getSonic().playerSprite.getY() - world.getSonic().playerSprite.getHeight();
         if(sonicX >= x && sonicX <= x+48){
             if(y <= sonicY && y >= sonicYMax){
                 return true;
@@ -100,9 +100,9 @@ public class Motobug {
     void draw(SpriteBatch batch) {
         if(exist){
             if(direction == true){
-                batch.draw(motobugPicRight,x, y);
+                batch.draw(motobugPicRight, x, y);
            } else {
-                batch.draw(motobugPicLeft,x, y);
+                batch.draw(motobugPicLeft, x, y);
             }
         }
     }

@@ -34,12 +34,12 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(CinosGame cinosgame) {
         this.cinosgame = cinosgame;
         this.batch = cinosgame.batch;
-        this.gameOverPage = new GameOverPage(cinosgame,this);
-        world = new World(cinosgame,this);
-        worldRenderer = new WorldRenderer(cinosgame,world,this);
+        this.gameOverPage = new GameOverPage(cinosgame, this);
+        world = new World(cinosgame, this);
+        worldRenderer = new WorldRenderer(cinosgame, world, this);
         sonic = world.getSonic();
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(world.MAP_X,world.MAP_Y,gameCam);  
+        gamePort = new FitViewport(world.MAP_X, world.MAP_Y, gameCam);  
         gameCam.setToOrtho(false, 800, 600);
     }
 
@@ -60,28 +60,28 @@ public class GameScreen extends ScreenAdapter {
 
     private void cameraUpdate(){
         float x = world.sonic.playerSprite.getX();
-        if(x < (Gdx.graphics.getWidth() / 2)){
-            x = (Gdx.graphics.getWidth() / 2);
+        if(x < (Gdx.graphics.getWidth()/2)){
+            x = (Gdx.graphics.getWidth()/2);
         }
-        else if(x > (world.MAP_X - (Gdx.graphics.getWidth() / 2))){
-            x = (world.MAP_X - (Gdx.graphics.getWidth() / 2));
+        else if(x > (world.MAP_X - (Gdx.graphics.getWidth()/2))){
+            x = (world.MAP_X - (Gdx.graphics.getWidth()/2));
         }
         float y = world.sonic.playerSprite.getY();
-        if(y < (Gdx.graphics.getHeight() / 2)){
-            y = (Gdx.graphics.getHeight() / 2);
+        if(y < (Gdx.graphics.getHeight()/2)){
+            y = (Gdx.graphics.getHeight()/2);
         }
-        else if(y > (world.MAP_Y - (Gdx.graphics.getHeight() / 2))){
-            y = (world.MAP_Y - (Gdx.graphics.getHeight() / 2));
+        else if(y > (world.MAP_Y - (Gdx.graphics.getHeight()/2))){
+            y = (world.MAP_Y - (Gdx.graphics.getHeight()/2));
         }
         gameCam.position.set(x, y, 0);
         gameCam.update();
     }
 
     public float gamePositionX (){
-        return gameCam.position.x - (Gdx.graphics.getWidth() / 2);
+        return gameCam.position.x - (Gdx.graphics.getWidth()/2);
     }
 
     public float gamePositionY (){
-        return gameCam.position.y - (Gdx.graphics.getHeight() / 2);
+        return gameCam.position.y - (Gdx.graphics.getHeight()/2);
     }
 }

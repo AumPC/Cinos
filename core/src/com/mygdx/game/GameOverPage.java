@@ -34,7 +34,7 @@ class GameOverPage {
     
     public void render(float delta){
         batch.begin();
-        batch.draw(BGGameOver,gameScreen.gamePositionX(), gameScreen.gamePositionY());
+        batch.draw(BGGameOver, gameScreen.gamePositionX(), gameScreen.gamePositionY());
 //        font.draw(batch, "Ring : "+""+ gameScreen.numRings,gameScreen.gamePositionX()+ 350, gameScreen.gamePositionY()+250);
 //        font.draw(batch, "Score : "+""+ gameScreen.score,gameScreen.gamePositionX()+ 325, gameScreen.gamePositionY()+300);
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {

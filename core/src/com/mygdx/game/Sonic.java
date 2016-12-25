@@ -91,7 +91,7 @@ public class Sonic {
         x = updatePositionX(x,y);
         updatePositionY(y);
         y = checkIsOnBase(x,y);
-        if(y == walk.baseY(playerSprite.getX(),playerSprite.getWidth())){
+        if(y == walk.baseY(playerSprite.getX(), playerSprite.getWidth())){
             isJump = false;
         }
         if(y<10){
@@ -101,32 +101,32 @@ public class Sonic {
         checkPlayerOutOfBound();
     }
     
-     private float updatePositionX(float x,float y){
+     private float updatePositionX(float x, float y){
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             direction = -1;
-            x = BorderX(x,y);
+            x = BorderX(x, y);
             keyLeftPress = true;
         } else {
             keyLeftPress = false;
         }
-        isKeyPress(keyLeftPress,keyRightPress);
+        isKeyPress(keyLeftPress, keyRightPress);
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             direction = 1;
             keyRightPress = true;
-            x = BorderX(x,y);
+            x = BorderX(x, y);
         } else {
             keyRightPress = false;
         }
         return x;
     }
      
-    private float BorderX(float x,float y){
-        if(walk.canMoveX(x,y,direction,playerSprite.getWidth(),velocity)) {
-            x += velocity*direction;
+    private float BorderX(float x, float y){
+        if(walk.canMoveX(x, y, direction, playerSprite.getWidth(), velocity)) {
+            x += velocity * direction;
         }else {
-            for(int i=1;i<velocity;i++){
-                if(walk.canMoveX(x,y,1,playerSprite.getWidth(),velocity)) {
-                    x += (velocity-i)*direction;
+            for(int i = 1 ; i < velocity; i++){
+                if(walk.canMoveX(x, y, 1, playerSprite.getWidth(), velocity)) {
+                    x += (velocity-i) * direction;
                     break;
                 }
             }
@@ -151,20 +151,20 @@ public class Sonic {
         }
     }
     
-    private float checkIsOnBase(float x,float y){
+    private float checkIsOnBase(float x, float y){
         if(countY > 0){
             y += 7;
             countY--;
         } else {
-            if(y == walk.baseY(x,playerSprite.getWidth())){
+            if(y == walk.baseY(x, playerSprite.getWidth())){
                 isJump1 = false;
                 isJump2 = false; 
-            } else if(y < walk.baseY(x,playerSprite.getWidth())){
+            } else if(y < walk.baseY(x, playerSprite.getWidth())){
                     y -= 5;
             } else {
                 int down;
-                for(down = 2;down<=speed;down++){
-                    if(y-down <= walk.baseY(x,playerSprite.getWidth()))
+                for(down = 2; down <= speed; down++){
+                    if(y-down <= walk.baseY(x, playerSprite.getWidth()))
                         break;
                 }
                 y -= down-1;
@@ -235,11 +235,11 @@ public class Sonic {
         }
     }    
     
-    private void isKeyPress(boolean keyLeftPress,boolean keyRightPress){
+    private void isKeyPress(boolean keyLeftPress, boolean keyRightPress){
         if(keyLeftPress && direction == -1){
             if(!keyRightPress){
                 accCount -= 1;
-                if(accCount == 0 && velocity < maxSpeed){
+                if((accCount == 0) && (velocity < maxSpeed)){
                     velocity += acc;
                     accCount = 3;
                 }
@@ -250,7 +250,7 @@ public class Sonic {
         } else if(keyRightPress && direction == 1){
             if(!keyLeftPress){
                 accCount -= 1;
-                if(accCount == 0 && velocity < maxSpeed){
+                if((accCount == 0) && (velocity < maxSpeed)){
                     velocity += acc;
                     accCount = 3;
                 }

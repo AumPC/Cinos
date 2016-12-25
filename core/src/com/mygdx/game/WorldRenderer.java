@@ -40,13 +40,13 @@ class WorldRenderer {
         batch.begin();
         if(gameScreen.gameState == 1){
             batch.draw(BG, gameScreen.gamePositionX(), gameScreen.gamePositionY());
-            batch.draw(Map, 0,0);
+            batch.draw(Map, 0, 0);
             sonic.playerSprite.draw(batch);
             for(Motobug m : world.motobugs){
                 m.draw(batch);
             }
-            this.font.draw(batch, "Ring : "+""+ gameScreen.numRings,gameScreen.gamePositionX()+ 50, gameScreen.gamePositionY()+575);
-            this.font.draw(batch, "Score : "+""+ gameScreen.score,gameScreen.gamePositionX()+ 650, gameScreen.gamePositionY()+575);
+            this.font.draw(batch, "Ring : " + "" + gameScreen.numRings, gameScreen.gamePositionX()+50, gameScreen.gamePositionY()+575);
+            this.font.draw(batch, "Score : "  + "" + gameScreen.score, gameScreen.gamePositionX()+650, gameScreen.gamePositionY()+575);
             for(Ring a : world.rings){
                 a.draw(batch);
             }

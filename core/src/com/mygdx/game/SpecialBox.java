@@ -23,7 +23,7 @@ public class SpecialBox {
     private boolean haveBox;
     private int selected = 0;
     
-    public SpecialBox(int x, int y,World world, GameScreen gameScreen) {
+    public SpecialBox(int x, int y, World world, GameScreen gameScreen) {
         this.x = x;
         this.y = y;
         this.world = world;
@@ -41,16 +41,16 @@ public class SpecialBox {
     
     void draw(SpriteBatch batch) {
         if(haveBox){
-            batch.draw(box,x, y);
+            batch.draw(box, x, y);
         }
     }
 
     private void isKeep() {
-        float sonicX = world.getSonic().playerSprite.getX()+world.getSonic().playerSprite.getWidth()/2;
+        float sonicX = world.getSonic().playerSprite.getX() + world.getSonic().playerSprite.getWidth()/2;
         float sonicY = world.getSonic().playerSprite.getY();
-        float sonicYMax = world.getSonic().playerSprite.getY()+world.getSonic().playerSprite.getHeight();
-        if(sonicX >= x && sonicX <= x+50){
-            if(y+47 >= sonicY && y+47 <= sonicYMax){
+        float sonicYMax = world.getSonic().playerSprite.getY() + world.getSonic().playerSprite.getHeight();
+        if((sonicX >= x) && (sonicX <= x+50)){
+            if((y+47 >= sonicY) && (y+47 <= sonicYMax)){
                 gameScreen.numRings += 1;
                 haveBox = false;
                 getBox();
@@ -59,16 +59,16 @@ public class SpecialBox {
     }
 
     private void getBox() {
-        if(selected%7==0 || selected%7==1 || selected%7==2){
+        if((selected%7 == 0) || (selected%7 == 1) || (selected%7 == 2)){
             gameScreen.score += 100;
         }
-        if(selected%7==3){
+        if(selected%7 == 3){
             gameScreen.score += 250;
         }
-        if(selected%7==4){
+        if(selected%7 == 4){
             gameScreen.score += 500;
         }
-        if(selected%7==5){
+        if(selected%7 == 5){
             gameScreen.score -= 300;
         }
         if(selected%7==6){
